@@ -23,6 +23,8 @@ cp lb/* $HOME/.local/bin/ || true
 mkdir $HOME/.local/share/larbs -p
 cp -r larbs/*  $HOME/.local/share/larbs || true
 sudo cp ulb/* /usr/local/bin/ || true
+echo "${status}   -> ${nc}making dmenu_run_i use konsole instead of kitty"
+sudo sed -i "s/termcmd=.\+/termcmd=\"konsole -e \$(cat /tmp/kittyrun)" /usr/local/bin/dmenu_run_i
 
 cp i3config $HOME/.i3config || true
 
