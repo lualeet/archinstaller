@@ -206,6 +206,8 @@ if [ -f /mnt/linuxsetup-chroot.sh ]; then
 	sed -i "s/installdisk=placeholder/installdisk=$sanitizedinstalldisk/" /mnt/linuxsetup-chroot.sh
 	#cat /mnt/linuxsetup-chroot.sh | sed "s/installdisk=placeholder/installdisk="$installdisk"/" > /mnt/linuxsetup-chroot.sh
 fi;
+echo " -> copying config scripts"
+cp -r ./scripts /mnt/
 
 echo " -> wait for the partition to unmount"
 umount $installdisk2
