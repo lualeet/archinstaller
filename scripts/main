@@ -37,16 +37,18 @@ getdep() {
 
 	echo " -> checking dependency $1"
 
-	if ! $aurhelper -Qq | grep -i $1 &>/dev/null; then
+	if ! $aurhelper -Qq $1 &>/dev/null; then
 		if [ $2 = temp ]; then
 			temppackages="$temppackages $1"
 		fi;
-		if $aurhelper -Ss $1 | grep -i $1; then
+		if $aurhelper -Si $1 &>/dev/null; then
 			eval $aurhelper -S $1
 		else
 			echo " -> unable to get dependency $1"
 			exit 1
 		fi;
+	else
+		echo " -> $1 already installed"
 	fi;
 }
 
