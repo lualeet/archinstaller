@@ -4,7 +4,7 @@ set -e
 getdep picom-ibhagwan-git
 
 if [ -f $HOME/.config/picom.conf ]; then
-	cat $HOME/.config/picom.conf $HOME/.config/picom.conf.backup
+	cat $HOME/.config/picom.conf > $HOME/.config/picom.conf.backup
 	rm $HOME/.config/picom.conf
 fi;
 
