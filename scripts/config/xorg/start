@@ -3,6 +3,7 @@ set -e
 
 getdep xorg-server
 getdep xorg-xinit
+getdep xf86-video-vesa
 
 if [ -f $HOME/.xinitrc ]; then
 	cat $HOME/.xinitrc > $HOME/.xinitrc.backup

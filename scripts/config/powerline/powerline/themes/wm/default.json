@@ -1,0 +1,58 @@
+{
+	"dividers": {
+		"left": {
+			"hard": " ",
+			"soft": " "
+		},
+		"right": {
+			"hard": " ",
+			"soft": " "
+		}
+	},
+	"segments": {
+		"right": [
+			{
+				"function": "powerline.segments.common.gpu.temperature"
+			},
+			{
+				"function": "powerline.segments.common.sys.cpu_load_percent"
+			},
+			{
+				"function": "powerline.segments.common.ram.used_ram"
+			},
+			{
+				"function": "powerline.segments.common.ram.used_swap"
+			},
+			{
+				"function": "powerline.segments.common.cwd.where"
+			},
+			{
+				"function": "powerline.segments.common.players.spotify"
+			},
+			{
+				"function": "powerline.segments.common.wthr.weather",
+				"priority": 50,
+				"args": {
+					"temp_format": "{temp:.1f}°C"
+				}
+			},
+			{
+				"function": "powerline.segments.common.time.date"
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"args": {
+					"format": "%b %a"
+				}
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "%H:%M:%S",
+					"istime": true
+				}
+			}
+		]
+	}
+}
