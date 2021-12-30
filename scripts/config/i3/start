@@ -11,6 +11,8 @@ if [ -d $HOME/.config/i3 ]; then
 fi;
 mkdir $HOME/.config/i3 -p
 cp -r i3/* $HOME/.config/i3/
+sed -i "s/kitty/konsole/" $HOME/.config/i3/config
+sed -i "s/.\+konsole --class.\+//g" $HOME/.config/i3/config
 
 mkdir -p $HOME/.local/bin
 cp lb/* $HOME/.local/bin/ || true

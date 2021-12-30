@@ -14,3 +14,12 @@ cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i "s/twm &//" $HOME/.xinitrc
 sed -i "s/xterm .\+//" $HOME/.xinitrc
 sed -i "s/exec/exec i3-start/" $HOME/.xinitrc
+
+echo 'Section "InputClass"
+	Identifier "touchpad"
+	Driver "libinput"
+	MatchIsTouchpad "on"
+	Option "Tapping" "on"
+	option "TappingButtonMap" "lmr"
+EndSection
+' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf &>/dev/null

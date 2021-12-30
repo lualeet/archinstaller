@@ -11,5 +11,5 @@ echo " -> updating /etc/pacman.conf"
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf
 sudo sed -i "s/#ParallelDownloads.\+/ParallelDownloads = 5\nILoveCandy/" /etc/pacman.conf
 
-getdep 'noto-fonts, noto-fonts-emoji, nerd-fonts-fira-code, qt5ct, btop'
+getdep 'noto-fonts, noto-fonts-emoji, nerd-fonts-fira-code, qt5ct, btop, openssh, ntfs-3g'
 

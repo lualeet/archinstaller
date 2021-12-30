@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-getdep kvantum
+getdep 'kvantum, breeze-icons, breeze-dark-flat, breeze, plasma-workspace'
 
 if [ -d $HOME/.config/Kvantum ]; then
 	if [ -d $HOME/.config/KvantumBackup ]; then
