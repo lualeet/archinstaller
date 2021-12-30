@@ -156,7 +156,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias installed='yay -Q | grep -i'
+alias installed='paru -Q | grep -i'
 alias code='vscodium'
 alias vsc='vscodium'
 alias gimp='gimp-2.99'
@@ -169,7 +169,7 @@ alias rm='rm -v'
 alias wine='LD_PRELOAD="" wine'
 alias adb='/opt/android-sdk/platform-tools/adb'
 man() { /usr/bin/man $1 | nvim -R -c 'set ft=man' -c 'nmap Q :cq<CR>' -c 'nmap K :Man <C-R>=expand("<cword>")<CR><CR>' -; }
-bins() { yay -Ql $1 | grep -iE bin/.+; }
+bins() { paru -Ql $1 | grep -iE bin/.+; }
 mntiso() { sudo mount $1 /mnt/iso -o loop; }
 
 export EDITOR=/usr/bin/nvim

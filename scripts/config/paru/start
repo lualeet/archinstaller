@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+source ../../colors
+
+echo "${status}   -> ${nc}making git directory"
+if ! [ -d "$HOME/git/" ]; then
+	mkdir "$HOME/git/"
+fi;
+
+getdep git
+
+where=`pwd`
+cd "$HOME/git/"
+
+if ! [ -d $HOME/git/paru ]; then
+	echo "${status}   -> ${nc}git cloning paru"
+	git clone "https://aur.archlinux.org/paru.git"
+	cd paru
+	makepkg -si
+	cd $where
+	rm -rf "$HOME/git/paru"
+else
+	echo "${attention}   -> ${nc}$HOME/git/paru already exists"
+	if ! [ -f /usr/bin/paru ]; then
+		echo "${attention}   -> ${nc}paru is not installed, running makepkg"
+		cd paru
+		makepkg -si
+	fi;
+	cd $where
+fi;
