@@ -51,7 +51,7 @@ getdep() {
 		if ! [ -z $2 ] && [ $2 = "temp" ]; then
 			temppackages="$temppackages $1"
 		fi;
-		eval $aurhelper -S `echo $1 | sed "s/, / /"` --noconfirm --needed
+		eval $aurhelper -S `echo $1 | sed "s/, / /g"` --noconfirm --needed
 }
 
 announce() {
