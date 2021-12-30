@@ -53,12 +53,12 @@ hwclock --systohc
 echo "${status}  -> ${nc}generating locale"
 locale-gen
 
-printf "${interact}==> {$nc}Create non root user? "
+printf "${interact}==> ${nc}Create non root user? "
 qread nonroot y
 if [ $nonroot = "n" ]; then
 	true
 else
-	printf "${interact}==> {$nc}Username: "
+	printf "${interact}==> ${nc}Username: "
 	qqread username user
 	if [ -z $username ]; then
 		username=user
@@ -67,7 +67,7 @@ else
 		echo "${status}  -> ${nc}user $username already exists, skipping"
 	else
 		useradd -m $username
-		echo "${interact}==> {$nc}Password: "
+		echo "${interact}==> ${nc}Password: "
 		if [ -z $veryquiet ]; then
 			passwd $username
 		else

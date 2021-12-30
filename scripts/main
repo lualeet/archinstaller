@@ -1,5 +1,8 @@
 #!/bin/sh
-source scripts/colors
+if [ -d /tmp/scripts ]; then
+	cd /tmp
+	source scripts/colors
+fi;
 
 if [ `whoami` = "root" ]; then
 	echo "${attention}  -> ${nc}ran as root, not good for configs"

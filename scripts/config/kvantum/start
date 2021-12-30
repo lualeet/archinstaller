@@ -6,9 +6,34 @@ getdep 'kvantum, breeze-icons, breeze-dark-flat, breeze, plasma-workspace'
 
 echo "${status}   -> ${nc}copying Kvantum configs"
 if [ -d $HOME/.config/Kvantum ]; then
-	if [ -d $HOME/.config/KvantumBackup ]; then
-		rm -rf $HOME/.config/KvantumBackup
-	fi;
+	rm -rf $HOME/.config/KvantumBackup || true
 	mv $HOME/.config/Kvantum $HOME/.config/KvantumBackup
 fi;
 cp -r Kvantum $HOME/.config
+
+echo "${status}   -> ${nc}copying qt5ct configs"
+if [ -d $HOME/.config/qt5ct ]; then
+	rm -rf $HOME/.config/qt5ctBackup || true
+	mv $HOME/.config/qt5ct $HOME/.config/qt5ctBackup
+fi;
+mkdir -p $HOME/.config/qt5ct/qss
+mkdir -p $HOME/.config/qt5ct/colors
+cp qt5ct.cont $HOME/.config/qt5ct/qt5ct.conf
+
+echo "${status}   -> ${nc}copying dolphin configs"
+mv -f $HOME/.config/dolphinrc $HOME/.config/dolphinrc-backup ||true
+cp dolphinrc $HOME/.config/
+echo "${status}   -> ${nc}copying kde globals"
+mv -f $HOME/.config/kdeglobals $HOME/.config/kdeglobals-backup ||true
+cp kdeglobals $HOME/.config/
+echo "${status}   -> ${nc}copying kiorc"
+mv -f $HOME/.config/kiorc $HOME/.config/kiorc-backup ||true
+cp kiorc $HOME/.config/
+
+echo "${status}   -> ${nc}copying btop configs"
+if [ -d $HOME/.config/btop ]; then
+	rm -rf $HOME/.config/btopBackup || true
+	mv $HOME/.config/btop $HOME/.config/btopBackup
+fi;
+mkdir -p $HOME/.config/btop/themes
+cp btop.conf $HOME/.config/btop/btop.conf
