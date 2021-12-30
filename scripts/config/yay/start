@@ -16,7 +16,7 @@ if ! [ -d $HOME/git/yay ]; then
 	echo "${status}   -> ${nc}git cloning yay"
 	git clone "https://aur.archlinux.org/yay.git"
 	cd yay
-	makepkg -si
+	makepkg -si --noconfirm
 	cd $where
 	rm -rf "$HOME/git/yay"
 else
@@ -24,7 +24,7 @@ else
 	if ! [ -f /usr/bin/yay ]; then
 		echo "${attention}   -> ${nc}yay is not installed, running makepkg"
 		cd yay
-		makepkg -si
+		makepkg -si --noconfirm
 	fi;
 	cd $where
 fi;
