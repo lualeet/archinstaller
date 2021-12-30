@@ -73,6 +73,7 @@ announce() {
 	cd "/tmp/scripts"
 }
 
+announce configure
 announce yay
 announce tmux
 announce zsh
