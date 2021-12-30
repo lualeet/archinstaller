@@ -18,7 +18,7 @@ if [ -d $HOME/.config/qt5ct ]; then
 fi;
 mkdir -p $HOME/.config/qt5ct/qss
 mkdir -p $HOME/.config/qt5ct/colors
-cp qt5ct.cont $HOME/.config/qt5ct/qt5ct.conf
+cp qt5ct.conf $HOME/.config/qt5ct/qt5ct.conf
 
 echo "${status}   -> ${nc}copying dolphin configs"
 mv -f $HOME/.config/dolphinrc $HOME/.config/dolphinrc-backup ||true
