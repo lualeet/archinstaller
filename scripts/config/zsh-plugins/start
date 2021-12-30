@@ -1,0 +1,49 @@
+#!/bin/sh
+set -e
+
+if ! [ -d "$HOME/git/" ]; then
+	mkdir "$HOME/git/"
+fi;
+
+if ! [ -d $HOME/git/zsh-syntax-highlighting ]; then
+	git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" $HOME/git/zsh-syntax-highlighting
+else
+	echo " -> $HOME/git/zsh-syntax-highlighting already exists"
+fi;
+
+if ! [ -d $HOME/git/zsh-autocomplete ]; then
+	git clone "https://github.com/marlonrichert/zsh-autocomplete.git" $HOME/git/zsh-autocomplete
+else
+	echo " -> $HOME/git/zsh-autocomplete already exists"
+fi;
+
+if ! [ -d $HOME/.oh-my-zsh/custom/themes/powerlevel10k ]; then
+	git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+else
+	echo " -> $HOME/.oh-my-zsh/custom/themes/powerlevel10k already exists"
+fi;
+
+if ! [ -d $HOME/.oh-my-zsh/custom/plugins/vi-mode ]; then
+	git clone https://github.com/Nyquase/vi-mode $HOME/.oh-my-zsh/custom/plugins/vi-mode
+else
+	echo " -> $HOME/.oh-my-zsh/custom/plugins/vi-mode already exists"
+fi;
+
+if ! [ -d $HOME/.oh-my-zsh/custom/plugins/zsh-vimode-visual ]; then
+	git clone https://github.com/b4b4r07/zsh-vimode-visual $HOME/.oh-my-zsh/custom/plugins/zsh-vimode-visual
+else
+	echo " -> $HOME/.oh-my-zsh/custom/plugins/zsh-vimode-visual already exists"
+fi;
+
+
+if [ -f $HOME/.p10k.zsh ]; then
+	cat $HOME/.p10k.zsh > $HOME/.p10k.zsh.beforeinstaller
+	rm $HOME/.p10k.zsh
+fi;
+cp p10k.zsh $HOME/.p10k.zsh
+
+if [ -f $HOME/.p10k.tty.zsh ]; then
+	cat $HOME/.p10k.tty.zsh > $HOME/.p10k.tty.zsh.beforeinstaller
+	rm $HOME/.p10k.tty.zsh
+fi;
+cp p10k.tty.zsh $HOME/.p10k.tty.zsh

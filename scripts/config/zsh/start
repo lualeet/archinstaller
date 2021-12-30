@@ -3,3 +3,22 @@ set -e
 
 getdep curl temp
 getdep zsh
+getdep tmux
+getdep rsync
+
+if [ -f "$HOME/.zshrc" ]; then
+	cat $HOME/.zshrc > $HOME/.zshrc.beforeinstaller
+	rm $HOME/.zshrc
+fi;
+
+cp zshrc $HOME/.zshrc
+cp lscolors $HOME/.lscolors
+
+if ! [ -d "$HOME/.oh-my-zsh" ]; then
+	curl "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" -o /tmp/zsh-install.sh
+	chmod +x /tmp/zsh-install.sh
+	/tmp/zsh-install.sh --unattended --keep-zshrc
+	sudo chsh -s /usr/bin/zsh `whoami`
+else
+	echo " -> $HOME/.oh-my-zsh already exists"
+fi;

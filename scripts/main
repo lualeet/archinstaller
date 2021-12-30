@@ -76,4 +76,6 @@ announce() {
 announce yay
 announce tmux
 announce zsh
+announce zsh-plugins
+cleanup
 

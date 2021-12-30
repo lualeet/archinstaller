@@ -12,12 +12,12 @@ cd "$HOME/git/"
 
 if ! [ -d $HOME/git/yay ]; then
 	echo " -> git cloning yay"
-	git clone https://aur.archlinux.org/yay.git
+	git clone "https://aur.archlinux.org/yay.git"
 	cd yay
 	makepkg -si
 	cd $where
 	rm -rf "$HOME/git/yay"
 else
-	echo " -> yay already exists"
+	echo " -> $HOME/git/yay already exists"
 	cd $where
 fi;
