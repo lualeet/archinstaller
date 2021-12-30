@@ -18,7 +18,7 @@ fi;
 mkdir $HOME/.config/i3 -p
 cp -r i3/* $HOME/.config/i3/
 
-cp lb/* $HOME/.local/bin/ || true
+cp lb/* $HOME/.local/share/bin/ || true
 mkdir $HOME/.local/share/larbs -p
 cp -r larbs/*  $HOME/.local/share/larbs || true
 sudo cp ulb/* /usr/local/bin/ || true
