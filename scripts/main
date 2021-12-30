@@ -6,7 +6,7 @@ if [ `whoami` = "root" ]; then
 		user=`ls /home/`
 		echo " -> one user found, continuing as $user"
 		cp -r scripts "/home/$user/"
-		sudo -u $user sh -c "cd /home/$user/; ./scripts/main"
+		exec sudo -u $user sh -c "cd /home/$user/; ./scripts/main"
 	else
 		echo " -> too many (or no) non-root users found, stopping"
 		exit 1
@@ -38,7 +38,7 @@ getdep() {
 	echo " -> checking dependency $1"
 
 	if ! $aurhelper -Qq $1 &>/dev/null; then
-		if [ $2 = temp ]; then
+		if ! [ -z $2 ] && [ $2 = "temp" ]; then
 			temppackages="$temppackages $1"
 		fi;
 		if $aurhelper -Si $1 &>/dev/null; then
@@ -58,8 +58,8 @@ announce() {
 	i=0
 	while [ $i = 0 ]; do
 		i=1
-		trap 'echo script $1 errored; break' ERR
-		source start
+		trap "echo script $1 errored; break" ERR
+		source `pwd`/start
 	done
 	trap - ERR
 	echo " -> finished $1"
