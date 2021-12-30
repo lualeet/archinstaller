@@ -18,7 +18,13 @@ if ! [ -d "$HOME/.oh-my-zsh" ]; then
 	curl "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" -o /tmp/zsh-install.sh
 	chmod +x /tmp/zsh-install.sh
 	/tmp/zsh-install.sh --unattended --keep-zshrc
-	sudo chsh -s /usr/bin/zsh `whoami`
 else
 	echo " -> $HOME/.oh-my-zsh already exists"
+fi;
+sudo chsh -s /bin/zsh `whoami`
+
+if ! [ -f /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz ]; then
+	curl "https://github.com/powerline/fonts/raw/master/Terminus/PSF/ter-powerline-v12n.psf.gz" | sudo tee /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz &>/dev/null
+else
+	echo " -> /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz already exists"
 fi;
