@@ -2,7 +2,7 @@
 set -e
 
 if [ -z $TMUX ]; then
-	tmux new-session sh -c "$(pwd)/linuxsetup-livecd.sh"
+	tmux new-session sh -c "$(pwd)/linuxsetup-livecd.sh \"$@\""
 fi;
 
 if ! [ -z $1 ] && [ $1 = "-q" ]; then
