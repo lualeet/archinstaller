@@ -14,10 +14,16 @@ if [ -d $HOME/git/yay ]; then
 	alreadyexists=1
 fi;
 
-echo " -> git cloning yay"
-git clone https://aur.archlinux.org/yay.git
-makepkg -si
-cd $where
 if [ -z $alreadyexists ]; then
+	echo " -> git cloning yay"
+	git clone https://aur.archlinux.org/yay.git
+	cd yay
+	makepkg -si
+	cd $where
 	rm -rf "$HOME/git/yay"
+else
+	echo " -> installing yay"
+	cd yay
+	makepkg -si
+	cd $where
 fi;
