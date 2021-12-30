@@ -5,7 +5,11 @@ getdep dunst
 getdep libnotify
 
 if [ -d $HOME/.config/dunst ]; then
-	mv $HOME/.config/dunst $HOME/.config/dunst-backup
+	if [ -d $HOME/.config/dunst-backup ]; then
+		rm -rf $HOME/.config/dunst-backup
+	fi;
+	mkdir -p $HOME/.config/dunst-backup
+	mv $HOME/.config/dunst/* $HOME/.config/dunst-backup/
 fi;
 
 mkdir $HOME/.config/dunst
