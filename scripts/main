@@ -6,7 +6,11 @@ if [ `whoami` = "root" ]; then
 		user=`ls /home/`
 		echo " -> one user found, continuing as $user"
 		cp -r scripts "/home/$user/"
-		exec sudo -u $user sh -c "cd /home/$user/; ./scripts/main"
+		roothome=$HOME
+		export HOME="/home/$user"
+		sudo -u $user sh -c "cd /home/$user/; ./scripts/main"
+		export HOME=$roothome
+		exit
 	else
 		echo " -> too many (or no) non-root users found, stopping"
 		exit 1
