@@ -31,19 +31,19 @@ fi;
 temppackages=""
 
 cleanup() {
-	if [ -z $temppackages ]; then
-		return
-	fi;
+	if ! [ -z $temppackages ]; then
+		aurhelper="sudo pacman"
+		if [ -f /usr/bin/yay ]; then
+			aurhelper=yay
+		fi;
 
-	aurhelper="sudo pacman"
-	if [ -f /usr/bin/yay ]; then
-		aurhelper=yay
+		for package in $temppackages; do
+			if ! [ -z $package ]; then
+				eval $aurhelper -Rscn $package || echo "${error}  -> ${nc}failed to remove package${gold} $1 ${nc}"
+			fi;
+		done
+		exit 0
 	fi;
-
-	for package in $temppackages; do
-		eval $aurhelper -Rscn $1 || echo "${error}  -> ${nc}failed to remove package${gold} $1 ${nc}"
-	done
-	exit 0
 }
 
 getdep() {
@@ -54,10 +54,10 @@ getdep() {
 
 	echo "${status}  -> ${nc}checking dependency${gold} $1 ${nc}"
 
-		if ! [ -z $2 ] && [ $2 = "temp" ]; then
-			temppackages="$temppackages $1"
-		fi;
-		eval $aurhelper -S `echo $1 | sed "s/, / /g"` --noconfirm --needed
+	if ! [ -z $2 ] && [ $2 = "temp" ]; then
+		temppackages="$temppackages $1"
+	fi;
+	eval $aurhelper -S `echo $1 | sed "s/, / /g"` --noconfirm --needed
 }
 
 announce() {
