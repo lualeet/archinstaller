@@ -2,6 +2,8 @@
 set -e
 
 getdep powerline
+getdep python-psutil
+getdep xrandr
 
 if [ -d $HOME/.config/powerline ]; then
 	if [ -d $HOME/.config/powerline-backup ]; then
