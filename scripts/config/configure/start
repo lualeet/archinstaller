@@ -3,6 +3,7 @@ set -e
 
 getdep noto-fonts
 getdep noto-fonts-emoji
+getdep nerd-fonts-fira-code
 getdep qt5ct
 
 getdep btop

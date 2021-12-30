@@ -3,31 +3,31 @@ set -e
 
 getdep powerline
 getdep python-psutil
-getdep xrandr
+getdep xorg-xrandr
 
 if [ -d $HOME/.config/powerline ]; then
 	if [ -d $HOME/.config/powerline-backup ]; then
 		rm -rf $HOME/.config/powerline-backup
 	fi;
 	mkdir -p $HOME/.config/powerline-backup
-	cp $HOME/.config/powerline/* $HOME/.config/powerline-backup/ || true
+	cp -r $HOME/.config/powerline/* $HOME/.config/powerline-backup/ || true
 	rm -rf $HOME/.config/powerline
 fi;
 
 mkdir $HOME/.config/powerline -p
-cp powerline/* $HOME/.config/powerline/
+cp -r powerline/* $HOME/.config/powerline/
 
 if [ -d $HOME/.config/powerline-segments ]; then
 	if [ -d $HOME/.config/powerline-segments-backup ]; then
 		rm -rf $HOME/.config/powerline-segments-backup
 	fi;
 	mkdir -p $HOME/.config/powerline-segments-backup
-	cp $HOME/.config/powerline-segments/* $HOME/.config/powerline-segments-backup/ || true
+	cp -r $HOME/.config/powerline-segments/* $HOME/.config/powerline-segments-backup/ || true
 	rm -rf $HOME/.config/powerline-segments
 fi;
 
 mkdir $HOME/.config/powerline-segments -p
-cp powerline-segments/* $HOME/.config/powerline-segments/
+cp -r powerline-segments/* $HOME/.config/powerline-segments/
 
 
 sudo ln -sf $HOME/.config/powerline-segments/*.py /usr/lib/python3.10/site-packages/powerline/segments/common/

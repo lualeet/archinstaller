@@ -88,6 +88,7 @@ announce dunst
 announce i3
 announce xorg
 announce kvantum
+announce powerline
 
 announce junk
 cleanup

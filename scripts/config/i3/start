@@ -28,3 +28,5 @@ cp i3config $HOME/.i3config || true
 
 sudo mkdir -p /usr/share/backgrounds
 sudo cp darkbackgrounddesat.png /usr/share/backgrounds/ || true
+
+sudo cp i3-start /bin/i3-start || true
