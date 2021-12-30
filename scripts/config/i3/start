@@ -5,7 +5,7 @@ getdep i3-gaps-next-git
 getdep i3-volume
 getdep i3lock
 getdep i3status
-getdep python-i3pc
+getdep python-i3ipc
 
 getdep feh
 
