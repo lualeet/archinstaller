@@ -12,5 +12,5 @@ if [ -d $HOME/.config/dunst ]; then
 	mv $HOME/.config/dunst/* $HOME/.config/dunst-backup/
 fi;
 
-mkdir $HOME/.config/dunst
+mkdir $HOME/.config/dunst -p
 cp dunstrc $HOME/.config/dunst
