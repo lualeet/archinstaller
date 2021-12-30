@@ -5,4 +5,4 @@ echo " -> backing up /etc/pacman.conf"
 sudo cp /etc/pacman.conf /etc/pacman.backup || true
 echo " -> updating /etc/pacman.conf"
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf
-sudo sed -i "s/#ParallelDownloads/ParallelDownloads\nILoveCandy/" /etc/pacman.conf
+sudo sed -i "s/#ParallelDownloads.\+/ParallelDownloads = 5\nILoveCandy/" /etc/pacman.conf
