@@ -18,8 +18,6 @@ if ! [ -d $HOME/git/yay ]; then
 	cd $where
 	rm -rf "$HOME/git/yay"
 else
-	echo " -> installing yay"
-	cd yay
-	makepkg -si
+	echo " -> yay already exists"
 	cd $where
 fi;
