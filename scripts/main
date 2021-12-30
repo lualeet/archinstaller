@@ -5,10 +5,13 @@ if [ `whoami` = "root" ]; then
 	if [ $usercount = 1 ]; then
 		user=`ls /home/`
 		echo " -> one user found, continuing as $user"
-		cp -r scripts "/home/$user/"
+		if [ -d /tmp/scripts ]; then
+			rm -rf /tmp/scripts
+		fi;
+		cp -r scripts "/tmp/"
 		roothome=$HOME
 		export HOME="/home/$user"
-		sudo -u $user sh -c "cd /home/$user/; ./scripts/main"
+		sudo -u $user sh -c "cd /home/$user/; /tmp/scripts/main"
 		export HOME=$roothome
 		exit
 	else
@@ -58,7 +61,7 @@ getdep() {
 
 announce() {
 	echo " -> configuring $1"
-	cd "scripts/config/$1"
+	cd "/tmp/scripts/config/$1"
 	i=0
 	while [ $i = 0 ]; do
 		i=1
@@ -67,7 +70,7 @@ announce() {
 	done
 	trap - ERR
 	echo " -> finished $1"
-	cd "../../.."
+	cd "/tmp/scripts"
 }
 
 announce yay
