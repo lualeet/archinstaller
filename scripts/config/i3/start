@@ -1,13 +1,7 @@
 #!/bin/sh
 set -e
 
-getdep i3-gaps-next-git
-getdep i3-volume
-getdep i3lock
-getdep i3status
-getdep python-i3ipc
-
-getdep feh
+getdep 'i3-gaps-next-git, i3-volume, i3lock, i3status, python-i3ipc, feh'
 
 if [ -d $HOME/.config/i3 ]; then
 	if [ -d $HOME/.config/i3-backup ]; then

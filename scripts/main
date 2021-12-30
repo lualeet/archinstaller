@@ -48,19 +48,10 @@ getdep() {
 
 	echo " -> checking dependency $1"
 
-	if ! $aurhelper -Qq $1 &>/dev/null; then
 		if ! [ -z $2 ] && [ $2 = "temp" ]; then
 			temppackages="$temppackages $1"
 		fi;
-		if $aurhelper -Si $1 &>/dev/null; then
-			eval $aurhelper -S $1 --noconfirm
-		else
-			echo " -> unable to get dependency $1"
-			exit 1
-		fi;
-	else
-		echo " -> $1 already installed"
-	fi;
+		eval $aurhelper -S `echo $1 | sed "s/, / /"` --noconfirm
 }
 
 announce() {
@@ -77,8 +68,8 @@ announce() {
 	cd "/tmp/scripts"
 }
 
-announce configure
 announce yay
+announce configure
 announce tmux
 announce zsh
 announce zsh-plugins

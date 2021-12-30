@@ -1,13 +1,6 @@
 #!/bin/sh
 set -e
 
-getdep noto-fonts
-getdep noto-fonts-emoji
-getdep nerd-fonts-fira-code
-getdep qt5ct
-
-getdep btop
-
 echo " -> adding PLATFORMTHEME to /etc/environment"
 echo "`cat /etc/environment`
 QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee /etc/environment >/dev/null
@@ -17,3 +10,6 @@ sudo cp /etc/pacman.conf /etc/pacman.backup || true
 echo " -> updating /etc/pacman.conf"
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf
 sudo sed -i "s/#ParallelDownloads.\+/ParallelDownloads = 5\nILoveCandy/" /etc/pacman.conf
+
+getdep 'noto-fonts, noto-fonts-emoji, nerd-fonts-fira-code, qt5ct, btop'
+

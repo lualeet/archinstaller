@@ -2,9 +2,7 @@
 set -e
 
 getdep curl temp
-getdep zsh
-getdep tmux
-getdep rsync
+getdep 'zsh, tmux, rsync'
 
 if [ -f "$HOME/.zshrc" ]; then
 	cat $HOME/.zshrc > $HOME/.zshrc.beforeinstaller
