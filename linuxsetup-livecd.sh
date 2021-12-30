@@ -234,9 +234,9 @@ umount $installdisk2
 
 mount $installdisk2 /mnt
 
-echo "${status}  -> ${nc}livecd setup done, run"
-echo "   arch-chroot /mnt"
-echo "   /linuxsetup-chroot.sh"
-echo "${interact}==> ${nc}Press enter to exit "
-read
-
+echo "${status}  -> ${nc}livecd setup done"
+#echo "   arch-chroot /mnt"
+#echo "   /linuxsetup-chroot.sh"
+#echo "${interact}==> ${nc}Press enter to exit "
+#read
+arch-chroot /mnt /mnt/linuxsetup-chroot.sh
