@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ -z $TMUX ]; then
+if [ -z $TMUX ] && [ -f /usr/bin/tmux ]; then
 	tmux new-session sh -c "$(pwd)/linuxsetup-livecd.sh \"$@\""
 fi;
 
