@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+getdep xorg-server
+getdep xorg-xinit
+
+if [ -f $HOME/.xinitrc ]; then
+	cat $HOME/.xinitrc > $HOME/.xinitrc.backup
+	rm $HOME/.xinitrc
+fi;
+
+cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
+
+# sorry sed syntax for multiline is scary
+sed -i "s/twm &//" $HOME/.xinitrc
+sed -i "s/xterm .\+//" $HOME/.xinitrc
+sed -i "s/exec/exec i3-start/" $HOME/.xinitrc

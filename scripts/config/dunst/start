@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+getdep dunst
+getdep libnotify
+
+if [ -d $HOME/.config/dunst ]; then
+	mv $HOME/.config/dunst $HOME/.config/dunst-backup
+fi;
+
+mkdir $HOME/.config/dunst
+cp dunstrc $HOME/.config/dunst

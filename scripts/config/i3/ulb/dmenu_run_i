@@ -1,0 +1,14 @@
+#!/bin/sh
+# dmenu_run improved
+# if a command ends with "!", it is started in term.
+
+termcmd="kitty --class 'kitty-scratch' /tmp/kittyrun"
+test -s $HOME/.dmenurc && . $HOME/.dmenurc
+
+cmd="$(dmenu_path | dmenu $@)"
+case $cmd in
+    *\! ) echo "tmux new-session $(printf "%s" "${cmd}" | cut -d'!' -f1)" > /tmp/kittyrun; chmod +x /tmp/kittyrun; ${termcmd};;
+    * ) ${cmd} ;;
+esac
+exit
+

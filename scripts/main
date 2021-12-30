@@ -78,5 +78,12 @@ announce yay
 announce tmux
 announce zsh
 announce zsh-plugins
+
+announce picom
+announce dunst
+announce i3
+announce xorg
+
+announce junk
 cleanup
 

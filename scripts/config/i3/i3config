@@ -1,0 +1,5 @@
+#!/bin/sh
+feh --bg-scale --zoom fill /usr/share/backgrounds/darkbackgrounddesat.png
+setxkbmap -model pc105 -layout us,lt -option grp:caps_toggle
+xset r rate 300 27
+numlockx

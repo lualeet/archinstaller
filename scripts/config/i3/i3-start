@@ -1,0 +1,6 @@
+#!/bin/sh
+picom&
+dunst&
+~/.i3config&
+xrdb -merge ~/.Xresources&
+exec i3

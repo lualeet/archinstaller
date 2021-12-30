@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+getdep kvantum
+
+if [ -d $HOME/.config/Kvantum ]; then
+	if [ -d $HOME/.config/KvantumBackup ]; then
+		rm -rf $HOME/.config/KvantumBackup
+	fi;
+	mv $HOME/.config/Kvantum $HOME/.config/KvantumBackup
+fi;
+cp -r Kvantum $HOME/.config

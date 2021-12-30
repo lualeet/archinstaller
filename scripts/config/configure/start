@@ -1,6 +1,16 @@
 #!/bin/sh
 set -e
 
+getdep noto-fonts
+getdep noto-fonts-emoji
+getdep qt5ct
+
+getdep btop
+
+echo " -> adding PLATFORMTHEME to /etc/environment"
+echo "`cat /etc/environment`
+QT_QPA_PLATFORMTHEME=qt5ct" > /etc/environment
+
 echo " -> backing up /etc/pacman.conf"
 sudo cp /etc/pacman.conf /etc/pacman.backup || true
 echo " -> updating /etc/pacman.conf"

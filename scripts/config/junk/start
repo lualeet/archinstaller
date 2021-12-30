@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+getdep kitty
+getdep qalculate-qt
+getdep pulsemixer
+getdep copyq
+getdep flameshot
+getdep vivaldi-stable
+getdep dolvim
