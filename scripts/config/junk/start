@@ -6,5 +6,5 @@ getdep qalculate-qt
 getdep pulsemixer
 getdep copyq
 getdep flameshot
-getdep vivaldi-stable
+getdep vivaldi
 getdep dolvim
