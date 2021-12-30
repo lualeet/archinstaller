@@ -1,10 +1,12 @@
 #!/bin/sh
+source scripts/colors
+
 if [ `whoami` = "root" ]; then
-	echo " -> ran as root, not what u want"
+	echo "${attention}  -> ${nc}ran as root, not good for configs"
 	usercount=`ls /home/ | wc -l`
 	if [ $usercount = 1 ]; then
 		user=`ls /home/`
-		echo " -> one user found, continuing as $user"
+		echo "${status}  -> ${nc}one user found, continuing as${gold} $user ${nc}"
 		if [ -d /tmp/scripts ]; then
 			rm -rf /tmp/scripts
 		fi;
@@ -15,11 +17,11 @@ if [ `whoami` = "root" ]; then
 		export HOME=$roothome
 		exit
 	else
-		echo " -> too many (or no) non-root users found, stopping"
+		echo "${error}  -> ${nc}too many (or no) non-root users found, stopping"
 		exit 1
 	fi;
 else
-	echo " -> running as `whoami`"
+	echo "${status}  -> ${nc}running as${gold} `whoami` ${nc}"
 fi;
 
 if ! [ -d /tmp/scripts ]; then
@@ -29,13 +31,17 @@ fi;
 temppackages=""
 
 cleanup() {
+	if [ -z $temppackages ]; then
+		return
+	fi;
+
 	aurhelper="sudo pacman"
 	if [ -f /usr/bin/yay ]; then
 		aurhelper=yay
 	fi;
 
 	for package in $temppackages; do
-		eval $aurhelper -Rscn $1 || echo " -> failed to remove package $1"
+		eval $aurhelper -Rscn $1 || echo "${error}  -> ${nc}failed to remove package${gold} $1 ${nc}"
 	done
 	exit 0
 }
@@ -46,7 +52,7 @@ getdep() {
 		aurhelper=yay
 	fi;
 
-	echo " -> checking dependency $1"
+	echo "${status}  -> ${nc}checking dependency${gold} $1 ${nc}"
 
 		if ! [ -z $2 ] && [ $2 = "temp" ]; then
 			temppackages="$temppackages $1"
@@ -55,16 +61,16 @@ getdep() {
 }
 
 announce() {
-	echo " -> configuring $1"
+	echo "${status}  -> ${nc}configuring${gold} $1 ${nc}"
 	cd "/tmp/scripts/config/$1"
 	i=0
 	while [ $i = 0 ]; do
 		i=1
-		trap "echo script $1 errored; break" ERR
+		trap "echo ${error}  -> ${nc}script${gold} $1 ${nc}errored; break" ERR
 		source `pwd`/start
 	done
 	trap - ERR
-	echo " -> finished $1"
+	echo "${status}  -> ${nc}finished${gold} $1 ${nc}"
 	cd "/tmp/scripts"
 }
 

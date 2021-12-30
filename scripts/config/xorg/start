@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep 'xorg-server, xorg-xinit, xf86-video-vesa, xf86-video-fbdev'
 
+echo "${status}   -> ${nc}copying template .xinitrc"
 if [ -f $HOME/.xinitrc ]; then
 	cat $HOME/.xinitrc > $HOME/.xinitrc.backup
 	rm $HOME/.xinitrc
@@ -10,11 +12,13 @@ fi;
 
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 
+echo "${status}   -> ${nc}inserting i3-start into .xinitrc"
 # sorry sed syntax for multiline is scary
 sed -i "s/twm &//" $HOME/.xinitrc
 sed -i "s/xterm .\+//" $HOME/.xinitrc
 sed -i "s/exec/exec i3-start/" $HOME/.xinitrc
 
+echo "${status}   -> ${nc}adding touchpad tapping config"
 echo 'Section "InputClass"
 	Identifier "touchpad"
 	Driver "libinput"

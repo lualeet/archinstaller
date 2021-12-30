@@ -1,13 +1,14 @@
 #!/bin/sh
 set -e
+source ../../colors
 
-echo " -> adding PLATFORMTHEME to /etc/environment"
+echo "${status}   -> ${nc}adding PLATFORMTHEME to /etc/environment"
 echo "`cat /etc/environment`
 QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee /etc/environment >/dev/null
 
-echo " -> backing up /etc/pacman.conf"
+echo "${status}   -> ${nc}backing up /etc/pacman.conf"
 sudo cp /etc/pacman.conf /etc/pacman.backup || true
-echo " -> updating /etc/pacman.conf"
+echo "${status}   -> ${nc}updating /etc/pacman.conf"
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf
 sudo sed -i "s/#ParallelDownloads.\+/ParallelDownloads = 5\nILoveCandy/" /etc/pacman.conf
 

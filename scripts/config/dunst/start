@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep 'dunst, libnotify'
 
+echo "${status}   -> ${nc}copying dunst configs"
 if [ -d $HOME/.config/dunst ]; then
 	if [ -d $HOME/.config/dunst-backup ]; then
 		rm -rf $HOME/.config/dunst-backup

@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
+source ../../colors
 
+echo "${status}   -> ${nc}making git directory"
 if ! [ -d "$HOME/git/" ]; then
 	mkdir "$HOME/git/"
 fi;
@@ -11,13 +13,18 @@ where=`pwd`
 cd "$HOME/git/"
 
 if ! [ -d $HOME/git/yay ]; then
-	echo " -> git cloning yay"
+	echo "${status}   -> ${nc}git cloning yay"
 	git clone "https://aur.archlinux.org/yay.git"
 	cd yay
 	makepkg -si
 	cd $where
 	rm -rf "$HOME/git/yay"
 else
-	echo " -> $HOME/git/yay already exists"
+	echo "${attention}   -> ${nc}$HOME/git/yay already exists"
+	if ! [ -f /usr/bin/yay ]; then
+		echo "${attention}   -> ${nc}yay is not installed, running makepkg"
+		cd yay
+		makepkg -si
+	fi;
 	cd $where
 fi;

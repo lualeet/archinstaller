@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep curl temp
 getdep 'zsh, tmux, rsync'
@@ -13,8 +14,10 @@ cp zshrc $HOME/.zshrc
 cp lscolors $HOME/.lscolors
 
 if ! [ -d "$HOME/.oh-my-zsh" ]; then
+	echo "${status}   -> ${nc}downloading oh-my-zsh"
 	curl "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" -o /tmp/zsh-install.sh
 	chmod +x /tmp/zsh-install.sh
+	echo "${status}   -> ${nc}installing oh-my-zsh"
 	/tmp/zsh-install.sh --unattended --keep-zshrc
 else
 	echo " -> $HOME/.oh-my-zsh already exists"
@@ -22,7 +25,8 @@ fi;
 sudo chsh -s /bin/zsh `whoami`
 
 if ! [ -f /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz ]; then
+	echo "${status}   -> ${nc}downloading poweline patched terminal font"
 	curl "https://raw.githubusercontent.com/powerline/fonts/master/Terminus/PSF/ter-powerline-v12n.psf.gz" | sudo tee /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz &>/dev/null
 else
-	echo " -> /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz already exists"
+	echo "${attention}   -> ${nc}/usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz already exists"
 fi;

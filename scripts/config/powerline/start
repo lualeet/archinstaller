@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep 'powerline, python-psutil, xorg-xrandr'
 
+echo "${status}   -> ${nc}copying powerline configs"
 if [ -d $HOME/.config/powerline ]; then
 	if [ -d $HOME/.config/powerline-backup ]; then
 		rm -rf $HOME/.config/powerline-backup
@@ -15,6 +17,7 @@ fi;
 mkdir $HOME/.config/powerline -p
 cp -r powerline/* $HOME/.config/powerline/
 
+echo "${status}   -> ${nc}copying custom powerline segments"
 if [ -d $HOME/.config/powerline-segments ]; then
 	if [ -d $HOME/.config/powerline-segments-backup ]; then
 		rm -rf $HOME/.config/powerline-segments-backup
@@ -28,4 +31,5 @@ mkdir $HOME/.config/powerline-segments -p
 cp -r powerline-segments/* $HOME/.config/powerline-segments/
 
 
+echo "${status}   -> ${nc}symlinking custom powerline segments"
 sudo ln -sf $HOME/.config/powerline-segments/*.py /usr/lib/python3.10/site-packages/powerline/segments/common/

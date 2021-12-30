@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep 'kvantum, breeze-icons, breeze-dark-flat, breeze, plasma-workspace'
 
+echo "${status}   -> ${nc}copying Kvantum configs"
 if [ -d $HOME/.config/Kvantum ]; then
 	if [ -d $HOME/.config/KvantumBackup ]; then
 		rm -rf $HOME/.config/KvantumBackup

@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep tmux-plugin-manager
+
+echo "${status}   -> ${nc}copying tmux configs"
 cp "tmux.conf" "$HOME/.tmux.conf"

@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
+source ../../colors
 
 getdep 'i3-gaps-next-git, i3-volume, i3lock, i3status, python-i3ipc, feh'
 
+echo "${status}   -> ${nc}copying i3 configs"
 if [ -d $HOME/.config/i3 ]; then
 	if [ -d $HOME/.config/i3-backup ]; then
 		rm -rf $HOME/.config/i3-backup
@@ -11,9 +13,11 @@ if [ -d $HOME/.config/i3 ]; then
 fi;
 mkdir $HOME/.config/i3 -p
 cp -r i3/* $HOME/.config/i3/
+echo "${status}   -> ${nc}replacing kitty with konsole in i3 configs"
 sed -i "s/kitty/konsole/" $HOME/.config/i3/config
 sed -i "s/.\+konsole --class.\+//g" $HOME/.config/i3/config
 
+echo "${status}   -> ${nc}copying other i3/dmenu binaries"
 mkdir -p $HOME/.local/bin
 cp lb/* $HOME/.local/bin/ || true
 mkdir $HOME/.local/share/larbs -p
@@ -22,7 +26,9 @@ sudo cp ulb/* /usr/local/bin/ || true
 
 cp i3config $HOME/.i3config || true
 
+echo "${status}   -> ${nc}copying wallpaper"
 sudo mkdir -p /usr/share/backgrounds
 sudo cp darkbackgrounddesat.png /usr/share/backgrounds/ || true
 
+echo "${status}   -> ${nc}copying i3-start"
 sudo cp i3-start /bin/i3-start || true
