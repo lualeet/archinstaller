@@ -239,4 +239,4 @@ echo "${status}  -> ${nc}livecd setup done"
 #echo "   /linuxsetup-chroot.sh"
 #echo "${interact}==> ${nc}Press enter to exit "
 #read
-arch-chroot /mnt /mnt/linuxsetup-chroot.sh
+arch-chroot /mnt /linuxsetup-chroot.sh

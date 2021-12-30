@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+cd /
 source scripts/colors
 
 if ! [ -z $1 ] && [ $1 = "-q" ]; then
