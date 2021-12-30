@@ -1,0 +1,16 @@
+#!/bin/sh
+escape='\033['
+red=${escape}0\;31m
+blue=${escape}0\;34m
+gold=${escape}1\;33m
+green=${escape}0\;32m
+orange=${escape}0\;33m
+
+done=$blue
+error=$red
+status=$blue
+interact=$green
+attention=$orange
+nc=${escape}0m
+
+alias echo='echo -e'
