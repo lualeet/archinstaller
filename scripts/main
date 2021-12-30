@@ -42,7 +42,7 @@ getdep() {
 			temppackages="$temppackages $1"
 		fi;
 		if $aurhelper -Si $1 &>/dev/null; then
-			eval $aurhelper -S $1
+			eval $aurhelper -S $1 --noconfirm
 		else
 			echo " -> unable to get dependency $1"
 			exit 1
