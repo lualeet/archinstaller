@@ -33,8 +33,8 @@ fi;
 
 getdep() {
 	aurhelper="sudo pacman"
-	if [ -f /usr/bin/paru ]; then
-		aurhelper=paru
+	if [ -f /usr/bin/yay ]; then
+		aurhelper=yay
 	fi;
 
 	echo "${status}  -> ${nc}checking dependency${gold} $1 ${nc}"
@@ -56,7 +56,7 @@ announce() {
 	cd "/tmp/scripts"
 }
 
-announce paru
+announce yay
 announce configure
 announce tmux
 announce zsh
