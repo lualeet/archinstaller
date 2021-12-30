@@ -10,7 +10,7 @@ done=$blue
 error=$red
 status=$blue
 interact=$green
-attention=$cyan
+attention=$gold
 nc=${escape}0m
 
 alias echo='echo -e'
