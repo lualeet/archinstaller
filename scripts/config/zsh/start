@@ -2,7 +2,6 @@
 set -e
 source ../../colors
 
-getdep curl temp
 getdep 'zsh, tmux, rsync'
 
 if [ -f "$HOME/.zshrc" ]; then
