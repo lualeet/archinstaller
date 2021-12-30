@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+getdep curl temp
+getdep zsh

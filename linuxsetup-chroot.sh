@@ -3,15 +3,22 @@ set -e
 
 if ! [ -z $1 ] && [ $1 = "-q" ]; then
 	quiet=true
-	if [ -z $2 ]; then
-		echo " -> if running in quiet mode, a path to disk device is required."
-		exit 1
-	fi;
+	installdisk=$2
+fi;
+
+if ! [ -z $1 ] && [ $1 = "-qq" ]; then
+	quiet=true
+	veryquiet=true
 	installdisk=$2
 fi;
 
 if [ -z $installdisk ]; then
 	installdisk=placeholder
+fi;
+
+if ! [ -z $quiet ] && [ $installdisk = "placeholder"]; then
+	echo " -> if running in quiet mode, a path to disk device is required."
+	exit 1
 fi;
 
 if [ $installdisk = placeholder ]; then
@@ -25,7 +32,16 @@ fi;
 qread() {
 	if ! [ -z $quiet ]; then
 		echo $2
-		return $2
+		eval $1="\"$2\""
+		return
+	fi;
+	read $1
+}
+qqread() {
+	if ! [ -z $quiet ] && ! [ -z $veryquiet]; then
+		echo $2
+		eval $1="\"$2\""
+		return
 	fi;
 	read $1
 }
@@ -42,7 +58,7 @@ if [ $nonroot = "n" ]; then
 	true
 else
 	printf " => Username: "
-	qread username user
+	qqread username user
 	if [ -z $username ]; then
 		username=user
 	fi;
@@ -51,7 +67,7 @@ else
 	else
 		useradd -m $username
 		echo " => Password: "
-		if [ -z $quiet ]; then
+		if [ -z $veryquiet ]; then
 			passwd $username
 		else
 			echo " -> SETTING USER \"$username\" PASSWORD TO \"password\""
@@ -73,4 +89,8 @@ echo " -> making grub config"
 grub-mkconfig -o /boot/grub/grub.cfg
 
 echo " -> chroot setup done"
+
+echo " -> running scripts"
+source scripts/main
+
 echo " -> exiting"

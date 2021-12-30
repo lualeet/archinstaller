@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+if [ -z $TMUX ]; then
+	tmux new-session sh -c "$(pwd)/linuxsetup-livecd.sh"
+fi;
+
 if ! [ -z $1 ] && [ $1 = "-q" ]; then
 	quiet=true
 	if [ -z $2 ]; then
@@ -13,6 +17,7 @@ if ! [ -z $1 ] && [ $1 = "-q" ]; then
 	fi;
 	if [ -z $3 ]; then
 		echo " -> if running in quiet mode, a root password is also required."
+		exit 1
 	fi;
 	installdisk=$2
 	rootpass=$3
@@ -21,7 +26,8 @@ fi;
 qread() {
 	if ! [ -z $quiet ]; then
 		echo $2
-		return $2
+		eval $1="\"$2\""
+		return
 	fi;
 	read $1
 }
@@ -184,7 +190,7 @@ echo $hostname > /mnt/etc/hostname
 echo " => Root password:"
 if ! [ -z $quiet ]; then
 	echo " -> in quiet mode, setting password to $rootpass"
-	echo $rootpass | passwd --stdin
+	echo "root:$rootpass" | chpasswd -R /mnt
 else
 	passwd
 fi;
@@ -209,5 +215,6 @@ mount $installdisk2 /mnt
 echo " -> livecd setup done, run"
 echo "   arch-chroot /mnt"
 echo "   /linuxsetup-chroot.sh"
-echo " -> exiting"
+echo " => Exiting "
+read
 

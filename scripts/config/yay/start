@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+if ! [ -d "$HOME/git/" ]; then
+	mkdir "$HOME/git/"
+fi;
+
+getdep git
+
+where=`pwd`
+cd "$HOME/git/"
+
+if [ -d $HOME/git/yay ]; then
+	alreadyexists=1
+fi;
+
+echo " -> git cloning yay"
+git clone https://aur.archlinux.org/yay.git
+makepkg -si
+cd $where
+if [ -z $alreadyexists ]; then
+	rm -rf "$HOME/git/yay"
+fi;

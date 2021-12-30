@@ -1,0 +1,5 @@
+#!/bin/sh
+set -3
+
+getdep tmux-plugin-manager
+cp "scripts/config/tmux/tmux.conf $HOME/.tmux.conf"

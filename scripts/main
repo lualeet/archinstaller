@@ -1,0 +1,70 @@
+#!/bin/sh
+if [ `whoami` = "root" ]; then
+	echo " -> ran as root, not what u want"
+	usercount=`ls /home/ | wc -l`
+	if [ $usercount = 1 ]; then
+		user=`ls /home/`
+		echo " -> one user found, continuing as $user"
+		cp -r scripts "/home/$user/"
+		sudo -u $user sh -c "cd /home/$user/; ./scripts/main"
+	else
+		echo " -> too many (or no) non-root users found, stopping"
+		exit 1
+	fi;
+else
+	echo " -> running as `whoami`"
+fi;
+
+temppackages=""
+
+cleanup() {
+	aurhelper="sudo pacman"
+	if [ -f /usr/bin/yay ]; then
+		aurhelper=yay
+	fi;
+
+	for package in $temppackages; do
+		eval $aurhelper -Rscn $1 || echo " -> failed to remove package $1"
+	done
+	exit 0
+}
+
+getdep() {
+	aurhelper="sudo pacman"
+	if [ -f /usr/bin/yay ]; then
+		aurhelper=yay
+	fi;
+
+	echo " -> checking dependency $1"
+
+	if ! $aurhelper -Qq | grep -i $1 &>/dev/null; then
+		if [ $2 = temp ]; then
+			temppackages="$temppackages $1"
+		fi;
+		if $aurhelper -Ss $1 | grep -i $1; then
+			eval $aurhelper -S $1
+		else
+			echo " -> unable to get dependency $1"
+			exit 1
+		fi;
+	fi;
+}
+
+announce() {
+	echo " -> configuring $1"
+	cd "scripts/config/$1"
+	i=0
+	while [ $i = 0 ]; do
+		i=1
+		trap 'echo script $1 errored; break' ERR
+		source start
+	done
+	trap - ERR
+	echo " -> finished $1"
+	cd "../../.."
+}
+
+announce yay
+announce tmux
+announce zsh
+
