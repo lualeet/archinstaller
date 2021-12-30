@@ -83,6 +83,7 @@ announce picom
 announce dunst
 announce i3
 announce xorg
+announce kvantum
 
 announce junk
 cleanup
