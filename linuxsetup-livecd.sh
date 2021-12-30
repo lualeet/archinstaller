@@ -8,6 +8,14 @@ fi;
 if ! [ -z $1 ] && [ $1 = "-q" ]; then
 	quiet=true
 	if [ -z $2 ]; then
+		echo " -> if running in quiet mode, a path to disk device is required."
+		exit 1
+	fi;
+	installdisk=$2
+fi;
+
+if ! [ -z $1 ] && [ $1 = "-qq" ]; then
+	if [ -z $2 ]; then
 		if [ -z $3 ]; then
 			echo " -> if running in quiet mode, a path to a disk device and a root password are required."
 			exit 1
@@ -19,12 +27,22 @@ if ! [ -z $1 ] && [ $1 = "-q" ]; then
 		echo " -> if running in quiet mode, a root password is also required."
 		exit 1
 	fi;
+	quiet=true
+	veryquiet=true
 	installdisk=$2
 	rootpass=$3
 fi;
 
 qread() {
 	if ! [ -z $quiet ]; then
+		echo $2
+		eval $1="\"$2\""
+		return
+	fi;
+	read $1
+}
+qqread() {
+	if ! [ -z $quiet ] && ! [ -z $veryquiet]; then
 		echo $2
 		eval $1="\"$2\""
 		return
@@ -181,15 +199,15 @@ echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 
 printf " => Your hostname: "
-qread hostname hostname
+qqread hostname hostname
 if [ -z $hostname ]; then
 	hostname=hostname
 fi;
 echo $hostname > /mnt/etc/hostname
 
 echo " => Root password:"
-if ! [ -z $quiet ]; then
-	echo " -> in quiet mode, setting password to $rootpass"
+if ! [ -z $veryquiet ]; then
+	echo " -> in very quiet mode, setting password to $rootpass"
 	echo "root:$rootpass" | chpasswd -R /mnt
 else
 	passwd
