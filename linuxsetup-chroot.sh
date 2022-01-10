@@ -60,10 +60,10 @@ hwclock --systohc
 echo "${status}  -> ${nc}generating locale"
 locale-gen
 
-printf '%s==> %sCreate non root user? ' "${interact}" "${nc}"
+printf '%b==> %bCreate non root user? ' "${interact}" "${nc}"
 qread nonroot y
 if [ "$nonroot" != "n" ]; then
-	printf '%s==> %sUsername: ' "${interact}" "${nc}"
+	printf '%b==> %bUsername: ' "${interact}" "${nc}"
 	qqread username user
 	if [ -z "$username" ]; then
 		username=user

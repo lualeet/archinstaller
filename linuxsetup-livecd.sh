@@ -64,7 +64,7 @@ err_alreadymounted_umountfail() {
 	exit 1
 }
 err_alreadymounted() {
-	printf '%s%s' "${interact}==> ${nc}" "/mnt is already mounted, umount and continue? "
+	printf '%b%b' "${interact}==> ${nc}" "/mnt is already mounted, umount and continue? "
 	qread unmount y
 	if [ "$unmount" = "y" ]; then
 		umount /mnt || err_alreadymounted-umountfail
@@ -93,7 +93,7 @@ fi;
 #cat /etc/pacman.conf | sed "s/#Color/Color/" | sed "s/#ParallelD/ParallelD/" > /etc/pacman.conf
 
 err_updatefailed() {
-	printf '%s%s' "${error}==> ${nc}" "Failed system update, continue anyways? "
+	printf '%b%b' "${error}==> ${nc}" "Failed system update, continue anyways? "
 	qread keepgoing y;
 	if [ "$keepgoing" = "y" ]; then
 		echo "${status}  -> ${nc}proceeding"
@@ -105,7 +105,7 @@ echo "${status}  -> ${nc}updating system"
 pacman -Sy --noconfirm || err_updatefailed
 
 fdisk -l | grep -i /dev/sd
-printf '%s%s' "${interact}==> ${nc}" "Choose disk to partition (${gold}/dev/sdX${nc}): "
+printf '%b%b' "${interact}==> ${nc}" "Choose disk to partition (${gold}/dev/sdX${nc}): "
 qread installdisk "$installdisk"
 installdisk2="$installdisk""2"
 
@@ -115,7 +115,7 @@ fi;
 
 fdisk -l "$installdisk"
 
-printf '%s%s' "${interact}==> ${nc}" "Partition disk \"${gold}$installdisk${nc}\"? "
+printf '%b%b' "${interact}==> ${nc}" "Partition disk \"${gold}$installdisk${nc}\"? "
 qread tocontinue y
 if [ "$tocontinue" = "y" ]; then
 	echo "${status}  -> ${nc}proceeding"
@@ -124,7 +124,7 @@ else
 	exit 0
 fi;
 
-printf '%s%s' "${interact}==> ${nc}" "Partition automatically with${green} parted (y) ${nc}or manually with fdisk (n)? "
+printf '%b%b' "${interact}==> ${nc}" "Partition automatically with${green} parted (y) ${nc}or manually with fdisk (n)? "
 qread useparted y
 if [ "$useparted" = "y" ]; then
 	echo "${status}  -> ${nc}using parted"
@@ -146,7 +146,7 @@ else
 	exit 1
 fi;
 
-printf '%s%s' "${interact}==> ${nc}" "Format${gold} $installdisk2 ${nc}with ext4? "
+printf '%b%b' "${interact}==> ${nc}" "Format${gold} $installdisk2 ${nc}with ext4? "
 qread ext4 y
 if [ "$ext4" = "y" ]; then
 	mkfs.ext4 -F "$installdisk2"
@@ -166,20 +166,20 @@ else
 fi;
 
 pacstrap /mnt base base-devel linux linux-firmware
-printf '%s%s' "${interact}==> ${nc}" "Install extra terminal software? (neovim, tmux) "
+printf '%b%b' "${interact}==> ${nc}" "Install extra terminal software? (neovim, tmux) "
 qread extras y
 if [ "$extras" = "y" ]; then
 	pacstrap /mnt neovim tmux
 fi;
 
-printf '%s%s' "${interact}==> ${nc}" "Install NetworkManager? "
+printf '%b%b' "${interact}==> ${nc}" "Install NetworkManager? "
 qread networkmanager y
 if [ "$networkmanager" = "y" ]; then
 	pacstrap /mnt networkmanager
 fi;
 
 prompt_installcustom() {
-	printf '%s%s' "${interact}==> ${nc}" "Install custom software? (space separated list of packages, empty for none) "
+	printf '%b%b' "${interact}==> ${nc}" "Install custom software? (space separated list of packages, empty for none) "
 	qread customs
 	if [ -n "$customs" ]; then
 		pacstrap /mnt "$customs" || prompt_installcustom
@@ -191,7 +191,7 @@ echo "${status}  -> ${nc}genfstab -U /mnt >> /mnt/etc/fstab"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 cat /mnt/etc/fstab
-printf '%s%s' "${interact}==> ${nc}" "Does this fstab file seem correct? "
+printf '%b%b' "${interact}==> ${nc}" "Does this fstab file seem correct? "
 qread fstabhealthy y
 if [ "$fstabhealthy" = "n" ]; then
 	pacman -S neovim --needed --noconfirm
@@ -205,7 +205,7 @@ echo "${status}  -> ${nc}preparing locale to en_US.UTF-8"
 echo "en_US.UTF-8 UTF-8" >> /mnt/etc/locale.gen
 echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 
-printf '%s%s' "${interact}==> ${nc}" "Your hostname: "
+printf '%b%b' "${interact}==> ${nc}" "Your hostname: "
 qqread hostname hostname
 if [ -z "$hostname" ]; then
 	hostname=hostname
