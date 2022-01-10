@@ -14,10 +14,11 @@ sudo sed -i "s/#ParallelDownloads.\+/ParallelDownloads = 5\nILoveCandy/" /etc/pa
 
 if [ -d /etc/NetworkManager ]; then
 	echo "${status}   -> ${nc}found NetworkManager, enabling it"
-	sudo ln -s /usr/lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service
-	sudo ln -s /usr/lib/systemd/system/NetworkManager-dispatcher.service /etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
-	sudo ln -s /usr/lib/systemd/system/NetworkManager-wait-online.service /etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service
+	sudo ln -s /usr/lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service || true
+	sudo ln -s /usr/lib/systemd/system/NetworkManager-dispatcher.service /etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service || true
+	sudo ln -s /usr/lib/systemd/system/NetworkManager-wait-online.service /etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service || true
 	echo "${status}   -> ${nc}enabled NetworkManager"
+	echo "${status}   -> ${nc}something probably went wrong but i dont wanna fix this rn"
 fi
 
 getdep 'noto-fonts, noto-fonts-emoji, nerd-fonts-fira-code, qt5ct, btop, ntfs-3g, man-db, wget, zip, unzip, tree'

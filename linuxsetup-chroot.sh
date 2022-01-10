@@ -83,6 +83,8 @@ if [ "$nonroot" != "n" ]; then
 	fi;
 	echo "${status}  -> ${nc}adding to sudoers"
 	sed -i "s/root ALL=(ALL) ALL/root ALL=(ALL) ALL\n$username ALL=(ALL) ALL/" /etc/sudoers
+	echo "${status}  -> ${nc}ignoring sudo password prompts"
+	sed -i "s/$username ALL=(ALL) ALL/$username ALL=(ALL) NOPASSWD:ALL"
 fi;
 
 echo "${status}  -> ${nc}installing grub as bootloader"

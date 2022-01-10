@@ -67,3 +67,5 @@ announce libreoffice
 
 announce junk
 
+echo "${status}  -> ${nc}fixing sudoers lol"
+sudo sed -i "s/\(.[^ ]*\) ALL=(ALL) NOPASSWD:ALL/\1 ALL=(ALL) ALL/" /etc/sudoers
