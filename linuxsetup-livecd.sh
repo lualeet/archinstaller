@@ -102,7 +102,7 @@ err_updatefailed() {
 	fi;
 }
 echo "${status}  -> ${nc}updating system"
-pacman -Syu --noconfirm || err_updatefailed
+pacman -Sy --noconfirm || err_updatefailed
 
 fdisk -l | grep -i /dev/sd
 printf '%s%s' "${interact}==> ${nc}" "Choose disk to partition (${gold}/dev/sdX${nc}): "

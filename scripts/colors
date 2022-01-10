@@ -1,5 +1,5 @@
 #!/bin/sh
-escape='\033['
+export escape='\033['
 export red=${escape}0\;31m
 export cyan=${escape}0\;36m
 export blue=${escape}1\;34m
