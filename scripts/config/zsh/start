@@ -1,16 +1,15 @@
 #!/bin/sh
 set -e
-source ../../colors
+. ../../colors
 
 getdep 'zsh, tmux, rsync'
 
 if [ -f "$HOME/.zshrc" ]; then
-	cat $HOME/.zshrc > $HOME/.zshrc.beforeinstaller
-	rm $HOME/.zshrc
+	rm "$HOME/.zshrc"
 fi;
 
-cp zshrc $HOME/.zshrc
-cp lscolors $HOME/.lscolors
+cp zshrc "$HOME/.zshrc"
+cp lscolors "$HOME/.lscolors"
 
 if ! [ -d "$HOME/.oh-my-zsh" ]; then
 	echo "${status}   -> ${nc}downloading oh-my-zsh"
@@ -21,7 +20,7 @@ if ! [ -d "$HOME/.oh-my-zsh" ]; then
 else
 	echo " -> $HOME/.oh-my-zsh already exists"
 fi;
-sudo chsh -s /bin/zsh `whoami`
+sudo chsh -s /bin/zsh "$(whoami)"
 
 if ! [ -f /usr/share/kbd/consolefonts/ter-powerline-v12n.psf.gz ]; then
 	echo "${status}   -> ${nc}downloading poweline patched terminal font"

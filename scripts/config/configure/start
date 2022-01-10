@@ -1,9 +1,9 @@
 #!/bin/sh
 set -e
-source ../../colors
+. ../../colors
 
 echo "${status}   -> ${nc}adding PLATFORMTHEME to /etc/environment"
-echo "`cat /etc/environment`
+echo "$(cat /etc/environment)
 QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee /etc/environment >/dev/null
 
 echo "${status}   -> ${nc}backing up /etc/pacman.conf"

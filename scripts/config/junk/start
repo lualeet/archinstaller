@@ -1,24 +1,24 @@
 #!/bin/sh
 set -e
-source ../../colors
+. ../../colors
 
 getdep 'konsole, qalculate-qt, pulsemixer, copyq, flameshot, vivaldi, dolvim, ffmpegthumbs'
 
 echo "${status}   -> ${nc}copying konsolerc"
-if [ -f $HOME/.config/konsolerc ]; then
-	if [ -f $HOME/.config/konsolerc-backup ]; then
-		rm -f $HOME/.config/konsolerc-backup
+if [ -f "$HOME/.config/konsolerc" ]; then
+	if [ -f "$HOME/.config/konsolerc-backup" ]; then
+		rm -f "$HOME/.config/konsolerc-backup"
 	fi;
-	mv $HOME/.config/konsolerc $HOME/.config/konsolerc-backup
+	mv "$HOME/.config/konsolerc" "$HOME/.config/konsolerc-backup"
 fi;
-cp konsolerc $HOME/.config/konsolerc
+cp konsolerc "$HOME/.config/konsolerc"
 
 echo "${status}   -> ${nc}copying konsole profile"
-if [ -d $HOME/.local/share/konsole ]; then
-	if [ -d $HOME/.local/share/konsolebackup ]; then
-		rm -rf $HOME/.local/share/konsolebackup
+if [ -d "$HOME/.local/share/konsole" ]; then
+	if [ -d "$HOME/.local/share/konsolebackup" ]; then
+		rm -rf "$HOME/.local/share/konsolebackup"
 	fi;
-	mv $HOME/.local/share/konsole $HOME/.local/share/konsolebackup
+	mv "$HOME/.local/share/konsole" "$HOME/.local/share/konsolebackup"
 fi;
-mkdir -p $HOME/.local/share/konsole
-cp other.profile $HOME/.local/share/konsole/other.profile
+mkdir -p "$HOME/.local/share/konsole"
+cp other.profile "$HOME/.local/share/konsole/other.profile"

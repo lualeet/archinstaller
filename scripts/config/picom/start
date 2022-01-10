@@ -1,13 +1,13 @@
 #!/bin/sh
 set -e
-source ../../colors
+. ../../colors
 
 getdep picom-ibhagwan-git
 
 echo "${status}   -> ${nc}copying Picom configs"
-if [ -f $HOME/.config/picom.conf ]; then
-	cat $HOME/.config/picom.conf > $HOME/.config/picom.conf.backup
-	rm $HOME/.config/picom.conf
+if [ -f "$HOME/.config/picom.conf" ]; then
+	cat "$HOME/.config/picom.conf" > "$HOME/.config/picom.conf.backup"
+	rm "$HOME/.config/picom.conf"
 fi;
 
-cp picom.conf $HOME/.config
+cp picom.conf "$HOME/.config"

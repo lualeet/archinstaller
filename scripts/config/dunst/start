@@ -1,17 +1,17 @@
 #!/bin/sh
 set -e
-source ../../colors
+. ../../colors
 
 getdep 'dunst, libnotify'
 
 echo "${status}   -> ${nc}copying dunst configs"
-if [ -d $HOME/.config/dunst ]; then
-	if [ -d $HOME/.config/dunst-backup ]; then
-		rm -rf $HOME/.config/dunst-backup
+if [ -d "$HOME/.config/dunst" ]; then
+	if [ -d "$HOME/.config/dunst-backup" ]; then
+		rm -rf "$HOME/.config/dunst-backup"
 	fi;
-	mkdir -p $HOME/.config/dunst-backup
-	mv $HOME/.config/dunst/* $HOME/.config/dunst-backup/ || true
+	mkdir -p "$HOME/.config/dunst-backup"
+	mv "$HOME/.config/dunst/*" "$HOME/.config/dunst-backup/" || true
 fi;
 
-mkdir $HOME/.config/dunst -p
-cp dunstrc $HOME/.config/dunst
+mkdir "$HOME/.config/dunst" -p
+cp dunstrc "$HOME/.config/dunst"

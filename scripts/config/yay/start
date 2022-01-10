@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-source ../../colors
+. ../../colors
 
 echo "${status}   -> ${nc}making git directory"
 if ! [ -d "$HOME/git/" ]; then
@@ -9,15 +9,15 @@ fi;
 
 getdep git
 
-where=`pwd`
+where=$(pwd)
 cd "$HOME/git/"
 
-if ! [ -d $HOME/git/yay ]; then
+if ! [ -d "$HOME/git/yay" ]; then
 	echo "${status}   -> ${nc}git cloning yay"
 	git clone "https://aur.archlinux.org/yay.git"
 	cd yay
 	makepkg -si --noconfirm
-	cd $where
+	cd "$where"
 	rm -rf "$HOME/git/yay"
 else
 	echo "${attention}   -> ${nc}$HOME/git/yay already exists"
@@ -26,5 +26,5 @@ else
 		cd yay
 		makepkg -si --noconfirm
 	fi;
-	cd $where
+	cd "$where"
 fi;

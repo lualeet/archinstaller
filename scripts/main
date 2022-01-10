@@ -1,14 +1,14 @@
 #!/bin/sh
 if [ -d /tmp/scripts ]; then
-	cd /tmp
-	source scripts/colors
+	cd /tmp || exit 1
+	. /tmp/scripts/colors
 fi;
 
-if [ `whoami` = "root" ]; then
+if [ "$(whoami)" = "root" ]; then
 	echo "${attention}  -> ${nc}ran as root, not good for configs"
-	usercount=`ls /home/ | wc -l`
-	if [ $usercount = 1 ]; then
-		user=`ls /home/`
+	usercount=$(find /home -maxdepth 1 | wc -l)
+	if [ "$usercount" = 1 ]; then
+		user=$(ls /home/)
 		echo "${status}  -> ${nc}one user found, continuing as${gold} $user ${nc}"
 		if [ -d /tmp/scripts ]; then
 			rm -rf /tmp/scripts
@@ -16,7 +16,7 @@ if [ `whoami` = "root" ]; then
 		cp -r scripts "/tmp/"
 		roothome=$HOME
 		export HOME="/home/$user"
-		sudo -u $user sh -c "cd /home/$user/; /tmp/scripts/main"
+		sudo -u "$user" sh -c "cd /home/$user/; /tmp/scripts/main"
 		export HOME=$roothome
 		exit
 	else
@@ -24,7 +24,7 @@ if [ `whoami` = "root" ]; then
 		exit 1
 	fi;
 else
-	echo "${status}  -> ${nc}running as${gold} `whoami` ${nc}"
+	echo "${status}  -> ${nc}running as${gold} $(whoami) ${nc}"
 fi;
 
 if ! [ -d /tmp/scripts ]; then
@@ -39,21 +39,17 @@ getdep() {
 
 	echo "${status}  -> ${nc}checking dependency${gold} $1 ${nc}"
 
-	eval $aurhelper -S `echo $1 | sed "s/, / /g"` --noconfirm --needed
+	eval $aurhelper -S "$(echo "${1}" | sed "s/, / /g")" --noconfirm --needed
 }
 
 announce() {
 	echo "${status}  -> ${nc}configuring${gold} $1 ${nc}"
-	cd "/tmp/scripts/config/$1"
 	i=0
-	while [ $i = 0 ]; do
+	while [ "$i" = 0 ]; do
 		i=1
-		trap "echo ${error}  -> ${nc}script${gold} $1 ${nc}errored; break" ERR
-		source `pwd`/start
+		. "/tmp/scripts/config/$1/start"
 	done
-	trap - ERR
 	echo "${status}  -> ${nc}finished${gold} $1 ${nc}"
-	cd "/tmp/scripts"
 }
 
 announce yay
