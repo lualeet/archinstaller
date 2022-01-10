@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. ../../colors
+. /tmp/scripts/colors
 
 echo "${status}   -> ${nc}adding PLATFORMTHEME to /etc/environment"
 echo "$(cat /etc/environment)
@@ -12,5 +12,12 @@ echo "${status}   -> ${nc}updating /etc/pacman.conf"
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf
 sudo sed -i "s/#ParallelDownloads.\+/ParallelDownloads = 5\nILoveCandy/" /etc/pacman.conf
 
-getdep 'noto-fonts, noto-fonts-emoji, nerd-fonts-fira-code, qt5ct, btop, openssh, ntfs-3g'
+if [ -d /etc/NetworkManager ]; then
+	echo "${status}   -> ${nc}found NetworkManager, enabling it"
+	sudo ln -s /usr/lib/systemd/system/NetworkManager.service /etc/systemd/system/multi-user.target.wants/NetworkManager.service
+	sudo ln -s /usr/lib/systemd/system/NetworkManager-dispatcher.service /etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
+	sudo ln -s /usr/lib/systemd/system/NetworkManager-wait-online.service /etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service
+	echo "${status}   -> ${nc}enabled NetworkManager"
+fi
 
+getdep 'noto-fonts, noto-fonts-emoji, nerd-fonts-fira-code, qt5ct, btop, ntfs-3g, man-db, wget, zip, unzip, tree'

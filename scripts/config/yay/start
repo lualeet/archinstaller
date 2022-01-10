@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. ../../colors
+. /tmp/scripts/colors
 
 echo "${status}   -> ${nc}making git directory"
 if ! [ -d "$HOME/git/" ]; then

@@ -2,18 +2,17 @@
 if [ -d /tmp/scripts ]; then
 	cd /tmp || exit 1
 	. /tmp/scripts/colors
+else
+	printf "no scripts folder, exploding\n"
+	exit 1
 fi;
 
 if [ "$(whoami)" = "root" ]; then
 	echo "${attention}  -> ${nc}ran as root, not good for configs"
-	usercount=$(find /home -maxdepth 1 | wc -l)
+	usercount=$(($(find /home -maxdepth 1 | wc -l) - 1))
 	if [ "$usercount" = 1 ]; then
 		user=$(ls /home/)
 		echo "${status}  -> ${nc}one user found, continuing as${gold} $user ${nc}"
-		if [ -d /tmp/scripts ]; then
-			rm -rf /tmp/scripts
-		fi;
-		cp -r scripts "/tmp/"
 		roothome=$HOME
 		export HOME="/home/$user"
 		sudo -u "$user" sh -c "cd /home/$user/; /tmp/scripts/main"
@@ -44,11 +43,8 @@ getdep() {
 
 announce() {
 	echo "${status}  -> ${nc}configuring${gold} $1 ${nc}"
-	i=0
-	while [ "$i" = 0 ]; do
-		i=1
-		. "/tmp/scripts/config/$1/start"
-	done
+	cd "/scripts/config/$1" || exit
+	. "/scripts/config/$1/start"
 	echo "${status}  -> ${nc}finished${gold} $1 ${nc}"
 }
 
@@ -64,6 +60,10 @@ announce i3
 announce xorg
 announce kvantum
 announce powerline
+
+announce ssh
+announce emacs
+announce libreoffice
 
 announce junk
 

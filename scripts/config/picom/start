@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. ../../colors
+. /tmp/scripts/colors
 
 getdep picom-ibhagwan-git
 

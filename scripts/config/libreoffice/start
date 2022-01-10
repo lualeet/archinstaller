@@ -1,0 +1,28 @@
+#!/bin/sh
+set -e
+. /tmp/scripts/colors
+
+getdep 'libreoffice-fresh, wget'
+
+wget https://raw.github.com/yamsu/vibreoffice/master/dist/vibreoffice-0.4.2.oxt
+
+   # ------------------------------------------------------------------------------
+   # LibreOffice Extensions - bundle install (for all users) just by unzipping!!!
+   # ------------------------------------------------------------------------------
+MY_EXTENSION_TO_INSTALL=vibreoffice-0.4.2.oxt
+LO_EXTENSION_DIR=/usr/lib/libreoffice/share/extensions
+if [ -x "${LO_EXTENSION_DIR}/" ]; then
+    EXT_FILE="$MY_EXTENSION_TO_INSTALL"
+    if [ -f "${EXT_FILE}" ]; then
+        LO_EXTENSION=$(basename --suffix=.oxt ${EXT_FILE})
+        if [ -e "${LO_EXTENSION_DIR}/${LO_EXTENSION}" ]; then
+            echo "${status}   -> ${nc}Replacing${gold} ${LO_EXTENSION} ${nc}extension"
+            sudo rm -rf "${LO_EXTENSION_DIR}/${LO_EXTENSION}"
+        else
+            echo "${status}   -> ${nc}Adding${gold} ${LO_EXTENSION} ${nc}extension"
+        fi
+        sudo unzip -q -d "${LO_EXTENSION_DIR}/${LO_EXTENSION}" \
+            "$MY_EXTENSION_TO_INSTALL"
+        sudo chmod -R 777 "${LO_EXTENSION_DIR}" # who cares
+    fi
+fi

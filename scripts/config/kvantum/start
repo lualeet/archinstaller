@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
-. ../../colors
+. /tmp/scripts/colors
 
-getdep 'kvantum, breeze-icons, breeze-dark-flat, breeze, plasma-workspace'
+getdep 'kvantum, breeze-icons, breeze-dark-flat, breeze, breeze-gtk, plasma-workspace'
 
 echo "${status}   -> ${nc}copying Kvantum configs"
 if [ -d "$HOME/.config/Kvantum" ]; then
@@ -31,3 +31,7 @@ if [ -d "$HOME/.config/btop" ]; then
 fi;
 mkdir -p "$HOME/.config/btop/themes"
 cp btop.conf "$HOME/.config/btop/btop.conf"
+
+echo "${status}   -> ${nc}copying gtk settings"
+cp -rf config/gtk-3.0 "$HOME/.config/"
+cp -f .gtkrc-2.0 "$HOME/"

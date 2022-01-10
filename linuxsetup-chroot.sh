@@ -1,7 +1,13 @@
 #!/bin/sh
 set -e
+if [ -d /tmp/scripts ]; then
+	rm -rf /tmp/scripts
+fi
+mkdir /tmp/scripts
+cp -r /scripts/* /tmp/scripts/
+
 cd /
-. /tmp/scripts/colors
+. /scripts/colors
 
 if [ -n "$1" ] && [ "$1" = "-q" ]; then
 	quiet=true
@@ -56,9 +62,7 @@ locale-gen
 
 printf '%s==> %sCreate non root user? ' "${interact}" "${nc}"
 qread nonroot y
-if [ "$nonroot" = "n" ]; then
-	true
-else
+if [ "$nonroot" != "n" ]; then
 	printf '%s==> %sUsername: ' "${interact}" "${nc}"
 	qqread username user
 	if [ -z "$username" ]; then
@@ -77,10 +81,9 @@ else
 			sleep 2
 		fi;
 	fi;
+	echo "${status}  -> ${nc}adding to sudoers"
+	sed -i "s/root ALL=(ALL) ALL/root ALL=(ALL) ALL\n$username ALL=(ALL) ALL/" /etc/sudoers
 fi;
-
-echo "${status}  -> ${nc}adding to sudoers"
-sed -i "s/root ALL=(ALL) ALL/root ALL=(ALL) ALL\n$username ALL=(ALL) ALL/" /etc/sudoers
 
 echo "${status}  -> ${nc}installing grub as bootloader"
 grub-install --target=i386-pc "$installdisk"

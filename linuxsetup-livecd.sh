@@ -1,5 +1,11 @@
 #!/bin/sh
 set -e
+if [ -d /tmp/scripts ]; then
+	rm -rf /tmp/scripts
+fi
+mkdir /tmp/scripts
+cp -r scripts/* /tmp/scripts/
+
 . /tmp/scripts/colors
 
 if [ -z "$TMUX" ] && [ -f /usr/bin/tmux ]; then

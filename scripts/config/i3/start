@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. ../../colors
+. /tmp/scripts/colors
 
 getdep 'i3-gaps-next-git, i3-volume, i3lock, i3status, python-i3ipc, feh'
 

@@ -1,3 +1,5 @@
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 if [ "$TERM" = "linux" ]; then
     if [[ "$TTY" = "/dev/tty1" ]]; then # || [[ "$TTY" = "/dev/tty2" ]]; then
         startx
@@ -50,6 +52,7 @@ source ~/git/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/lualeet/.oh-my-zsh"
@@ -125,7 +128,11 @@ plugins=(
     colored-man-pages
 	last-working-dir
 	vi-mode
-	zsh-vimode-visual
+	zman
+	colorize
+)
+zle_highlight=(
+	region:bg=blue,fg=black,bold
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -168,6 +175,7 @@ alias cp='rsync -ah --no-o --progress'
 alias rm='rm -v'
 alias wine='LD_PRELOAD="" wine'
 alias adb='/opt/android-sdk/platform-tools/adb'
+alias cat='ccat'
 man() { /usr/bin/man $1 | nvim -R -c 'set ft=man' -c 'nmap Q :cq<CR>' -c 'nmap K :Man <C-R>=expand("<cword>")<CR><CR>' -; }
 bins() { yay -Ql $1 | grep -iE bin/.+; }
 mntiso() { sudo mount $1 /mnt/iso -o loop; }

@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+. /tmp/scripts/colors
+
+getdep 'emacs, ripgrep, fd, discount, shellcheck'
+
+if [ -d "$HOME/.doom.d" ]; then
+    rm -r "$HOME/.doom.d"
+fi;
+
+if [ -d "$HOME/.emacs.d" ]; then
+    rm -r "$HOME/.emacs.d"
+fi;
+
+git clone --depth 1 "https://github.com/hlissner/doom-emacs" ~/.emacs.d
+
+~/.emacs.d/bin/doom -y install
+
+rm -rf ~/.doom.d
+cp -r .doom.d ~/
+
+~/.emacs.d/bin/doom -y upgrade
