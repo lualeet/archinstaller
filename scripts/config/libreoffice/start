@@ -4,7 +4,7 @@ set -e
 
 getdep 'libreoffice-fresh, wget'
 
-wget https://raw.github.com/yamsu/vibreoffice/master/dist/vibreoffice-0.4.2.oxt
+sudo wget https://raw.github.com/yamsu/vibreoffice/master/dist/vibreoffice-0.4.2.oxt # im not sure how this managed to explode
 
    # ------------------------------------------------------------------------------
    # LibreOffice Extensions - bundle install (for all users) just by unzipping!!!

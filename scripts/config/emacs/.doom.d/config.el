@@ -40,7 +40,7 @@
 ;; Autocomplete on some characters
 (setq company-auto-commit t)
 (setq company-auto-commit-chars '(?\ ?\) ?. ?\;))
-(setq company-idle-delay 0.01)
+(setq company-idle-delay 0.15)
 
 ;; Indent with tabs
 (setq indent-tabs-mode t)
